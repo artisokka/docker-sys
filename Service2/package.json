@@ -1,0 +1,12 @@
+{
+  "name": "service2",
+  "version": "1.0.0",
+  "description": "Service2 for system information",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "scripts": {
+    "start": "node app.js"
+  }
+}
