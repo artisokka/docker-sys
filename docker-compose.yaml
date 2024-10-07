@@ -7,8 +7,14 @@ services:
       - "8199:8199"
     depends_on:
       - service2
+    networks:
+      - internal_network
 
   service2:
     build: ./service2
-    ports:
-      - "5001:5001"
+    networks:
+      - internal_network
+
+networks:
+  internal_network:
+    driver: bridge 
