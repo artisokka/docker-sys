@@ -1,0 +1,49 @@
+Using LLM to solve the exercise
+- ChatGPT-4
+
+I asked ChatGPT to generate a file structure and pick two languages for the service to help me get 
+started with the exercise and it provided me with this
+
+/project
+│
+├── service1/
+│   ├── app.py
+│   ├── requirements.txt
+│   └── Dockerfile
+│
+├── service2/
+│   ├── app.js
+│   └── Dockerfile
+│
+└── docker-compose.yaml
+
+However it forgot to include a package.json file in the initial draft which I had to add myself… A 
+somewhat crucial mistake since my goal was to use AI to get a jumpstart at developing this *grin*
+
+Next I gave it my first drafts of both services and asked it how to structure Dockerfiles for both 
+services and while it gave me a correct Dockerfile for service2, it failed to write a functional 
+Dockerfile for service1 due to an outdated base image I presume, resulting in the following output:
+
+  "Service1": {
+    "Disk Space": "Filesystem      Size  Used Avail Use% Mounted on\noverlay        1007G   30G  926G   4% /",
+    "IP Address": "172.25.0.3",
+    "Processes": "/bin/sh: 1: ps: not found",
+    "Uptime": "/bin/sh: 1: uptime: not found"
+  },
+
+This is the faulty Dockerfile:
+
+FROM python:3.10-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+EXPOSE 8199
+CMD ["python", "app.py"]
+
+However I managed to fix it by adding the following line, hopefully it doesn't result in unexpected behavior 
+during testing:
+
+RUN apt-get update && apt-get install -y procps
+
+AI managed to help me get started in structuring the app but gave me some grief too.
