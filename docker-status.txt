@@ -1,3 +1,18 @@
+docker container ls
 CONTAINER ID   IMAGE             COMMAND                  CREATED          STATUS         PORTS                    NAMES
 cf121a952ed1   devops-service1   "python app.py"          54 minutes ago   Up 2 minutes   0.0.0.0:8199->8199/tcp   devops-service1-1
 658b2b8090cc   devops-service2   "docker-entrypoint.s…"   59 minutes ago   Up 2 minutes   5001/tcp                 devops-service2-1
+
+docker network ls
+NETWORK ID     NAME                                                      DRIVER    SCOPE
+caeb4c35b0ec   bridge                                                    bridge    local
+005283ce8918   devops_default                                            bridge    local
+a323138e41fa   devops_internal_network                                   bridge    local
+ddb789991953   ex02b_default                                             bridge    local
+3b335e9ea546   ex04a_default                                             bridge    local
+1847d32caf6e   ex05a_default                                             bridge    local
+953a32a4d2cd   ex05b_default                                             bridge    local
+6dd6bb104b21   ex06_default                                              bridge    local
+9f33d8c605d9   host                                                      host      local
+a7c3b377156b   mochoa_sqlcl-docker-extension-desktop-extension_default   bridge    local
+90df2af42a38   none                                                      null      local
