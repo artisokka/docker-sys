@@ -1,5 +1,5 @@
 Using LLM to solve the exercise
-- ChatGPT-4
+- ChatGPT-4o
 
 I asked ChatGPT to generate a file structure and pick two languages for the service to help me get 
 started with the exercise and it provided me with this
