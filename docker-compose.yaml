@@ -1,20 +1,64 @@
 version: '3.8'
 
 services:
-  service1:
-    build: ./service1
-    ports:
-      - "8199:8199"
-    depends_on:
-      - service2
-    networks:
-      - internal_network
+  service1-1:
+    build:
+      context: ./Service1
+      dockerfile: Dockerfile
+    environment:
+      - FLASK_APP=app.py
+    expose:
+      - "8199"
+    restart: "no"
+    stop_grace_period: 2s
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  service1-2:
+    build:
+      context: ./Service1
+      dockerfile: Dockerfile
+    environment:
+      - FLASK_APP=app.py
+    expose:
+      - "8199"
+    restart: "no"
+    stop_grace_period: 2s
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  service1-3:
+    build:
+      context: ./Service1
+      dockerfile: Dockerfile
+    environment:
+      - FLASK_APP=app.py
+    expose:
+      - "8199"
+    restart: "no"
+    stop_grace_period: 2s
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
   service2:
-    build: ./service2
-    networks:
-      - internal_network
+    build:
+      context: ./Service2
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5001"
+    restart: "no"
+    stop_grace_period: 2s
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
-networks:
-  internal_network:
-    driver: bridge 
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8198:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./html:/usr/share/nginx/html
+      - ./.htpasswd:/etc/nginx/.htpasswd
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: "no"
+    stop_grace_period: 2s

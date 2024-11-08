@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Dashboard</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+            }
+
+            h1 {
+                color: #333;
+            }
+
+            button {
+                padding: 10px 20px;
+                margin: 10px;
+                font-size: 16px;
+            }
+
+            #response-area {
+                display: block;
+                width: 100%;
+                margin-top: 10px;
+                font-family: monospace;
+                font-size: 14px;
+            }
+        </style>
+        <script>
+            async function sendRequest() {
+                try {
+                    const response = await fetch('/request-data');
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    const data = await response.json();
+                    document.getElementById('response-area').value = JSON.stringify(data, null, 2).replace(/\\n/g, '\n');
+                } catch (error) {
+                    console.error('There was an error with the request:', error);
+                }
+            }
+
+            async function stopService() {
+                try {
+                    const response = await fetch('/stop', { method: 'POST' });
+                    if (!response.ok) {
+                        throw new Error('Failed to stop services');
+                    }
+                    alert('All services are stopping.');
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+        </script>
+    </head>
+
+    <body>
+        <h1>Service Dashboard</h1>
+        <button onclick="sendRequest()">REQUEST</button>
+        <button onclick="stopService()">STOP</button>
+        <textarea id="response-area" rows="15" placeholder="Request response appears here"></textarea>
+    </body>
+
+</html>

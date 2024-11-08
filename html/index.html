@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Control Panel</title>
+</head>
+<body>
+    <h2>Control Panel</h2>
+    <button onclick="sendRequest()">REQUEST</button>
+    <button onclick="stopServices()">STOP</button>
+    <textarea id="output" rows="20" cols="80"></textarea>
+
+    <script>
+        async function sendRequest() {
+            try {
+                let response = await fetch('/');
+                let data = await response.json();
+                document.getElementById("output").value = JSON.stringify(data, null, 2);
+            } catch (error) {
+                document.getElementById("output").value = "Failed to fetch data.";
+            }
+        }
+
+        function stopServices() {
+            fetch('/stop', { method: 'POST' });
+            window.close();
+        }
+    </script>
+</body>
+</html>
